@@ -14,12 +14,15 @@ app.use(express.static('public/'))
 app.use('/', api);
 app.get('/', (req, res) => res.send("Landing page"))
 
+//using page not fount for invalid route
 app.use('/', (req, res) => {
     res.send("Page not found")
 })
+
+//Errorhandler - throughout the app 
 app.use(errorHandler);
 
 app.listen(3000, async () => {
     console.log("The Server is Running on http://localhost:3000");
-    initializeDatabase();
+    initializeDatabase();  // Initializing database at the time of app initialization 
 });
