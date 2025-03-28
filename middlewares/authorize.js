@@ -10,6 +10,7 @@ const opts = {
     secretOrKey: SECRET_KEY,
 };
 
+//using JWt-strategy
 passport.use(new JWTStategy(opts, async (jwt_payload, done) => {
     const user = await Users.findByPk(jwt_payload.sub);
     if (!user) {
@@ -19,7 +20,7 @@ passport.use(new JWTStategy(opts, async (jwt_payload, done) => {
     }
 }));
 
-
+//role based authentication
 exports.authorize = (roles = []) => (req, res, next) => {
     passport.authenticate('jwt', { session: false }, async (err, user, info) => {
         if (err) return next(res.sendStatus(401));
